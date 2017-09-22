@@ -27,7 +27,7 @@ dependencies {
     compile "com.android.support:design:$APPCOMPAT_VERSION"
     compile "com.android.support:recyclerview-v7:$APPCOMPAT_VERSION"
     compile "com.android.support:percent:$APPCOMPAT_VERSION"
-    compile "com.github.andremion:musiccoverview:$MUSICCOVERVIEW_VERSION"
+    compile 'com.github.andremion:musiccoverview:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

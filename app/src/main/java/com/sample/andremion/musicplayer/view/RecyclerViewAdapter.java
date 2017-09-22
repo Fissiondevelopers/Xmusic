@@ -25,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sample.andremion.musicplayer.R;
-import com.sample.andremion.musicplayer.music.MusicContent.MusicItem;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mCoverView.setImageResource(holder.mItem.getCover());
         holder.mTitleView.setText(holder.mItem.getTitle());
         holder.mArtistView.setText(holder.mItem.getArtist());
-        holder.mDurationView.setText(DateUtils.formatElapsedTime(holder.mItem.getDuration()));
+        holder.mDurationView.setText(DateUtils.formatElapsedTime(Long.parseLong(holder.mItem.getDuration())));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

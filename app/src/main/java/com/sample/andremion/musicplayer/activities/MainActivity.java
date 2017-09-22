@@ -1,15 +1,16 @@
-
-
 package com.sample.andremion.musicplayer.activities;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -23,10 +24,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sample.andremion.musicplayer.R;
-import com.sample.andremion.musicplayer.music.MusicContent;
+import com.sample.andremion.musicplayer.view.MusicItem;
 import com.sample.andremion.musicplayer.view.RecyclerViewAdapter;
 
-import static com.sample.andremion.musicplayer.R.id.options;
+import java.util.ArrayList;
 
 public class MainActivity extends PlayerActivity {
 
@@ -68,7 +69,7 @@ public class MainActivity extends PlayerActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.tracks);
         assert recyclerView != null;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerViewAdapter(MusicContent.ITEMS));
+        recyclerView.setAdapter(new RecyclerViewAdapter(getMusicItems()));
         ctx = this;
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
@@ -83,18 +84,45 @@ public class MainActivity extends PlayerActivity {
 				 * The following method, "handleShakeEvent(count):" is a stub //
 				 * method you would use to setup whatever you want done once the
 				 * device has been shook.**/
-
                 if(count==2){
                     Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
                     onFabClick(mFabView);
                 }
-
-
             }
         });
-
-
     }
+
+    private ArrayList<MusicItem> getMusicItems() {
+        final ArrayList<MusicItem> tempAudioList = new ArrayList<>();
+        Context context=MainActivity.this;
+
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {MediaStore.Audio.AudioColumns.DATA, MediaStore.Audio.AudioColumns.ALBUM, MediaStore.Audio.ArtistColumns.ARTIST,};
+        Cursor c = context.getContentResolver().query(uri,   projection, null, null, null);
+        if (c != null) {
+            while (c.moveToNext()) {
+                String path = c.getString(0);
+                String album = c.getString(1);
+                String artist = c.getString(2);
+                String name = path.substring(path.lastIndexOf("/") + 1);
+//                audioModel.setaName(name);
+//                audioModel.setaAlbum(album);
+//                audioModel.setaArtist(artist);
+//                audioModel.setaPath(path);
+//                File file=new File(path);
+//                MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+//                mediaMetadataRetriever.setDataSource(file.getAbsolutePath());
+//                String durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+//                int timeduration= Integer.parseInt(formateMilliSeccond(Long.parseLong(durationStr)));
+                //TODO add time
+                MusicItem audioModel=new MusicItem(R.drawable.album_cover_two_door,name,album,"5");
+                tempAudioList.add(audioModel);
+            }
+            c.close();
+        }
+        return tempAudioList;
+    }
+
 
     public void onFabClick(View view) {
         //noinspection unchecked

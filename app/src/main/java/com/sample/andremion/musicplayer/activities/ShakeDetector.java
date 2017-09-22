@@ -4,25 +4,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-
-import com.sample.andremion.musicplayer.R;
 
 public class ShakeDetector implements SensorEventListener {
 
     /*
      * The gForce that is necessary to register as shake.
      * Must be greater than 1G (one earth gravity unit).
-     * You can install "G-Force", by Blake La Pierre
+     * You can install "G-Force", by Blake L                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            a Pierre
      * from the Google Play Store and run it to see how
      *  many G's it takes to register a shake
      */
-    private static final float SHAKE_THRESHOLD_GRAVITY = 1.7F;
+    private static final float SHAKE_THRESHOLD_GRAVITY = 1.3F;
     private static final int SHAKE_SLOP_TIME_MS = 500;
     private static final int SHAKE_COUNT_RESET_TIME_MS = 3000;
 

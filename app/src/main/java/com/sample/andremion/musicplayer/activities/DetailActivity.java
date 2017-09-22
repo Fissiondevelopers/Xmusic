@@ -132,12 +132,6 @@ public class DetailActivity extends PlayerActivity {
         // for ActivityCompat#requestPermissions for more details.
         return;
     }
-
-
-
-
-
-
     @Override
     protected void onDestroy(){
         super.onDestroy();
