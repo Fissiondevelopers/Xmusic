@@ -6,14 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 
     <com.andremion.music.MusicCoverView
         android:id="@+id/cover"
         android:layout_width="match_parent"
+        android:layout_height="24dp"
         android:scaleType="centerCrop"
         android:src="@drawable/album_cover_daft_punk"
         android:transitionName="@string/transition_name_cover"
-        app:layout_heightPercent="35%"/>
+        app:layout_heightPercent="35%"
+        android:layout_below="@+id/toolbar" />
 
     <View
         android:id="@+id/pane"

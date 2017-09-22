@@ -41,8 +41,6 @@ public class DetailActivity extends PlayerActivity {
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
-    private CameraManager manager;
-    Intent mServiceIntent;
     FloatingActionButton discfab;
     Context ctx;
     public Context getCtx(){

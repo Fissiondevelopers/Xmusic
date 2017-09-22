@@ -5,8 +5,9 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@drawable/material_drawer_circle_mask"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MaterialDrawerTheme.TranslucentStatus">
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.Main">
