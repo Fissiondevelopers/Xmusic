@@ -25,7 +25,8 @@ import android.util.Log;
 public class PlayerService extends Service {
 
     private static final String TAG = PlayerService.class.getSimpleName();
-    private static final int DURATION = 335;
+    //TODO intent the time here in minutes
+    private static final int DURATION = 10;
 
     // Binder given to clients
     private final IBinder mBinder = new LocalBinder();

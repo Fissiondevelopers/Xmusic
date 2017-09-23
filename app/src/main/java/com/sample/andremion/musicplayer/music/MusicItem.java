@@ -1,37 +1,41 @@
 package com.sample.andremion.musicplayer.music;
 
-/**
- * Created by shubham on 22/9/17.
- */
+
 
 public  class MusicItem {
 
     private final int mCover;
     private final String mTitle;
     private final String mArtist;
-    private final long mDuration;
+    private final String mDuration;
+    private final String musicpath;
 
 
-    public MusicItem(int cover, String title, String artist, long duration) {
+    public MusicItem(int cover, String title, String artist, String duration,String mpath) {
         mCover = cover;
         mTitle = title;
         mArtist = artist;
         mDuration = duration;
+        musicpath=mpath;
     }
 
-    public int getCover() {
+    public int getmCover() {
         return mCover;
     }
 
-    public String getTitle() {
+    public String getmTitle() {
         return mTitle;
     }
 
-    public String getArtist() {
+    public String getmArtist() {
         return mArtist;
     }
 
-    public long getDuration() {
+    public String getmDuration() {
         return mDuration;
+    }
+
+    public String getMusicpath() {
+        return musicpath;
     }
 }

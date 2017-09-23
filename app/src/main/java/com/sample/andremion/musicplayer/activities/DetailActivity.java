@@ -19,6 +19,7 @@ package com.sample.andremion.musicplayer.activities;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraManager;
@@ -29,6 +30,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andremion.music.MusicCoverView;
@@ -45,15 +47,21 @@ public class DetailActivity extends PlayerActivity {
     Intent mServiceIntent;
     FloatingActionButton discfab;
     Context ctx;
-    public Context getCtx(){
-        return ctx;
-    }
+    public static TextView namedetail;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_detail);
         discfab = (FloatingActionButton) findViewById(R.id.fab);
+
+//        TextView musicname=findViewById(R.id.titlex);
+//        musicname.setText("SAf");
+        SharedPreferences prefs = getSharedPreferences("FIFO", MODE_PRIVATE);
+        namedetail=findViewById(R.id.music_name);
+        namedetail.setText(prefs.getString("msname","jeep"));
 
         mCoverView = (MusicCoverView) findViewById(R.id.cover);
         mCoverView.setCallbacks(new MusicCoverView.Callbacks() {
@@ -77,27 +85,25 @@ public class DetailActivity extends PlayerActivity {
         });
         ctx = this;
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mShakeDetector = new ShakeDetector();
         mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onShake(int count) {
-				/*
+                /*
 				 * The following method, "handleShakeEvent(count):" is a stub //
 				 * method you would use to setup whatever you want done once the
-				 * device has been shook.**/
-
-                if(count==3){
+0
+				 .* device has been shook.**/
+                if (count == 3) {
                     Toast.makeText(DetailActivity.this, "Hello", Toast.LENGTH_SHORT).show();
                     onFabClick(discfab);
                 }
-
-
             }
         });
+        Toast.makeText(getBaseContext(),"Here",Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -110,6 +116,7 @@ public class DetailActivity extends PlayerActivity {
         pause();
         mCoverView.stop();
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -120,7 +127,6 @@ public class DetailActivity extends PlayerActivity {
     @Override
     public void onPause() {
         super.onPause();
-
         // Add the following line to unregister the Sensor Manager onPause
         mSensorManager.unregisterListener(mShakeDetector);
         // TODO: Consider calling
@@ -132,22 +138,23 @@ public class DetailActivity extends PlayerActivity {
         // for ActivityCompat#requestPermissions for more details.
         return;
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
 
     }
 
 
-    private boolean isMyServiceRunning(Class<?> serviceClass){
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo service : manager.getRunningAppProcesses()){
-            if(serviceClass.getName().equals(service.getClass())){
-                Log.d("isMyservicerunning?",true+"");
+        for (ActivityManager.RunningAppProcessInfo service : manager.getRunningAppProcesses()) {
+            if (serviceClass.getName().equals(service.getClass())) {
+                Log.d("isMyservicerunning?", true + "");
                 return true;
             }
         }
-        Log.d("isMyServiceRunning?",false+"");
+        Log.d("isMyServiceRunning?", false + "");
         return false;
     }
 

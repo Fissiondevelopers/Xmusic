@@ -15,15 +15,20 @@
         android:src="@drawable/album_cover_daft_punk"
         android:transitionName="@string/transition_name_cover"
         app:layout_heightPercent="35%"
-        app:shape="circle" />
-
+        app:shape="circle"/>
     <include
-        android:id="@+id/title"
-        layout="@layout/track_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:layout_marginTopPercent="10%"/>
+    android:id="@+id/title"
+    layout="@layout/track_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    app:layout_marginTopPercent="10%"/>
+    <!--<TextView-->
+        <!--android:id="@+id/titlex"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--app:layout_marginTopPercent="10%"/>-->
 
     <com.sample.andremion.musicplayer.view.ProgressView
         android:id="@+id/progress"

@@ -75,7 +75,9 @@ public class ProgressView extends View {
         mBackgroundColor = outValue.data;
 
         mProgress = 0;
-        mMax = 100;
+
+        //Todo intent here in max time duration of music
+        mMax = 60;
     }
 
     public int getProgress() {

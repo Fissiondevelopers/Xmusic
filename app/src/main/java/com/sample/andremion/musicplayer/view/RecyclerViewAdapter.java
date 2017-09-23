@@ -16,6 +16,8 @@
 
 package com.sample.andremion.musicplayer.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -23,17 +25,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sample.andremion.musicplayer.R;
+import com.sample.andremion.musicplayer.activities.MainActivity;
+import com.sample.andremion.musicplayer.music.MusicItem;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
-    private final List<MusicItem> mValues;
+    ArrayList<MusicItem> mValues;
+    Context context;
+    SharedPreferences sharedpreferences;
 
-    public RecyclerViewAdapter(List<MusicItem> items) {
-        mValues = items;
+
+
+    public RecyclerViewAdapter(ArrayList<MusicItem> items, Context context) {
+        this.mValues = items;
+        this.context = context;
     }
 
     @Override
@@ -44,17 +54,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mCoverView.setImageResource(holder.mItem.getCover());
-        holder.mTitleView.setText(holder.mItem.getTitle());
-        holder.mArtistView.setText(holder.mItem.getArtist());
-        holder.mDurationView.setText(DateUtils.formatElapsedTime(Long.parseLong(holder.mItem.getDuration())));
-
+        holder.mCoverView.setImageResource(holder.mItem.getmCover());
+        holder.mTitleView.setText(holder.mItem.getmTitle());
+        holder.mArtistView.setText(holder.mItem.getmArtist());
+        holder.mDurationView.setText(DateUtils.formatElapsedTime(Long.parseLong(holder.mItem.getmDuration())));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Nothing to do
+                String path = mValues.get(position).getMusicpath();
+                String name=mValues.get(position).getmTitle();
+                String artist=mValues.get(position).getmArtist();
+                Toast.makeText(context, name+artist, Toast.LENGTH_SHORT).show();
+                MainActivity.name.setText(name+"-"+artist);
+                sharedpreferences = context.getSharedPreferences("FIFO", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("msname",name);
+                editor.commit();
+//                DetailActivity.namedetail.setText(name+"-"+artist);
             }
         });
     }
@@ -71,7 +89,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public final TextView mArtistView;
         public final TextView mDurationView;
         public MusicItem mItem;
-
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -81,5 +98,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             mDurationView = (TextView) view.findViewById(R.id.duration);
         }
     }
-
 }
