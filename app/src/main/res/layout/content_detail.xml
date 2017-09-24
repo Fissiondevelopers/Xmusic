@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.sample.andremion.musicplayer.view.InsetsPercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:alpha="1">
+    <ImageView
+        android:id="@+id/faded_backround"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/album_cover_daft_punk"
+        android:alpha="0.3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <com.andremion.music.MusicCoverView
         android:id="@+id/cover"
@@ -30,7 +40,7 @@
         android:layout_centerInParent="true"
         android:transitionName="@string/transition_name_progress"
         app:layout_aspectRatio="100%"
-        app:layout_heightPercent="40%"/>
+        app:layout_heightPercent="40%" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -81,7 +91,6 @@
             android:id="@+id/repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:src="@drawable/ic_repeat_white_24dp"/>
 
@@ -105,8 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
-        android:transitionGroup="true"
-        app:layout_marginBottomPercent="5%">
+        android:transitionGroup="true">
 
         <ImageView
             android:id="@+id/previous"

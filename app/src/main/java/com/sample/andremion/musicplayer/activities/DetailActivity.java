@@ -26,8 +26,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MotionEventCompat;
 import android.transition.Transition;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,23 +37,36 @@ import com.andremion.music.MusicCoverView;
 import com.sample.andremion.musicplayer.R;
 import com.sample.andremion.musicplayer.view.TransitionAdapter;
 
+import in.championswimmer.sfg.lib.GestureAnalyser;
+import in.championswimmer.sfg.lib.SimpleFingerGestures;
+
 public class DetailActivity extends PlayerActivity {
 
     private MusicCoverView mCoverView;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
+    private SimpleFingerGestures mySfg = new SimpleFingerGestures();
     FloatingActionButton discfab;
     Context ctx;
+    private boolean flag1,flag2;
     public Context getCtx(){
         return ctx;
     }
+    View view1;
+    int id =101;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_detail);
+        view1 = findViewById(R.id.faded_backround);
         discfab = (FloatingActionButton) findViewById(R.id.fab);
+
+
 
         mCoverView = (MusicCoverView) findViewById(R.id.cover);
         mCoverView.setCallbacks(new MusicCoverView.Callbacks() {
@@ -74,6 +89,7 @@ public class DetailActivity extends PlayerActivity {
             }
         });
         ctx = this;
+        view1.setOnTouchListener(mySfg);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -96,6 +112,22 @@ public class DetailActivity extends PlayerActivity {
 
             }
         });
+        view1.setOnTouchListener(new OnSwipeTouchListener(DetailActivity.this) {
+            public void onSwipeTop() {
+                Toast.makeText(DetailActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeRight() {
+                Toast.makeText(DetailActivity.this, "right", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeLeft() {
+                Toast.makeText(DetailActivity.this, "left", Toast.LENGTH_SHORT).show();
+            }
+            public void onSwipeBottom() {
+                Toast.makeText(DetailActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
 
     }
 
@@ -154,5 +186,6 @@ public class DetailActivity extends PlayerActivity {
         Log.d("isMyServiceRunning?",false+"");
         return false;
     }
+
 
 }
